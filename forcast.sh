@@ -1,4 +1,5 @@
 #!/bin/bash
+metric=1
 echo -e "Enter city name or cityname,country:"
 read city
 echo "Entered city is $city"
@@ -7,6 +8,9 @@ curl -s "$city_search" > city_cwid.log
 #grep cwid city_tmp.log | head -2 | tail -1
 city_cwid=`grep cwid city_cwid.log | head -2 | tail -1  | awk -F 'href="|&language' '{print $2}'`
 city_get_temp="https://www.myforecast.com/""$city_cwid"
+if [ $metric == 1 ]; then
+city_get_temp=$city_get_temp"&metric=true"
+fi
 curl -s "$city_get_temp"  > city_tmp.log
 count=0
 tmp_times=">9:00 am<,>12:00 pm<,>6:00 pm<,>10:00 pm<"
