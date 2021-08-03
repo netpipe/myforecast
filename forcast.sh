@@ -2,16 +2,18 @@
 metric=1
 sqlLogging=0
 
-echo -e "Enter city name or cityname,country:"
+echo -e "Enter city name or cityname,country:  if you have spaces use + between them"
 read city
 echo "Entered city is $city"
 city_search="https://www.myforecast.com/search_results.php?search=""$city"
 curl -s "$city_search" > city_cwid.log
 #grep cwid city_tmp.log | head -2 | tail -1
 city_cwid=`grep cwid city_cwid.log | head -2 | tail -1  | awk -F 'href="|&language' '{print $2}'`
+#city_cwid="index.php?cwid=gn12312"
 city_get_temp="https://www.myforecast.com/""$city_cwid"
+#city_get_temp="https://www.myforecast.com/index.php?city=""$city"
 if [ $metric == 1 ]; then
-city_get_temp=$city_get_temp"&metric=true"
+city_get_temp="$city_get_temp""&metric=true"
 fi
 
 if [ $sqlLogging == 1 ]; then
