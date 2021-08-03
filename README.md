@@ -9,3 +9,5 @@ also text icons or something like imgcat
 https://www.shellcheck.net/?id=cb37630 bugfixes still
 
 (https://erikflowers.github.io/weather-icons/)!
+
+https://github.com/netpipe/Giffer
