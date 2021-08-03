@@ -1,5 +1,7 @@
 #!/bin/bash
 metric=1
+sqlLogging=0
+
 echo -e "Enter city name or cityname,country:"
 read city
 echo "Entered city is $city"
@@ -11,6 +13,11 @@ city_get_temp="https://www.myforecast.com/""$city_cwid"
 if [ $metric == 1 ]; then
 city_get_temp=$city_get_temp"&metric=true"
 fi
+
+if [ $sqlLogging == 1 ]; then
+sqlite3 temps.db "insert into todo (day,temp,status,wind) values (\"$day\",$temp,\"$status\",\"$wind\");"
+fi
+
 curl -s "$city_get_temp"  > city_tmp.log
 count=0
 tmp_times=">9:00 am<,>12:00 pm<,>6:00 pm<,>10:00 pm<"
