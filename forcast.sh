@@ -2,9 +2,11 @@
 metric=1
 sqlLogging=0
 
-echo -e "Enter city name or cityname,country:  if you have spaces use + between them"
+echo -e "Enter city name or cityname,country:"
 read city
 echo "Entered city is $city"
+city=$(echo "$city" | sed 's/ /+/g')
+echo $city
 city_search="https://www.myforecast.com/search_results.php?search=""$city"
 curl -s "$city_search" > city_cwid.log
 #grep cwid city_tmp.log | head -2 | tail -1
